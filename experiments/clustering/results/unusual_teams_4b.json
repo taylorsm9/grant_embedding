@@ -1,0 +1,223 @@
+{
+  "design": "Unusual teams: new collaborations between topically distant PIs, and whether a call-fit model could\nhave suggested them. CPU only, cached embeddings.\n\nFixed design, decided before looking at any result:\n- PIs and profiles as in collab_eval.py (pre-FY2022 history; profile = mean abstract embedding).\n- Topic distance uses the OFF-THE-SHELF profiles. A pair is \"distant\" when neither PI is among the\n  other's 1,000 nearest PIs, \"close\" when at least one is among the other's 100 nearest; the rest\n  are \"middle\".\n- New collaborations: PI pairs on a project first funded FY2022-24 who never shared a pre-FY2022\n  project (both with history).\nPart A, describe: distant vs close pairs by mechanism family, call type, same institution, team\n  size, and share of large multi-component awards (U, P mechanisms).\nPart B, the call as a bridge: for pairs whose joint project is under one of the 769 test calls,\n  each PI's national rank for that call (max over their abstracts, as in the email backtest), by\n  model. Reported: share of pairs with both PIs in the top K, K = 100, 500, 1000.\nPart C, suggest teams: for each test call, candidates = topically distant pairs among the call's\n  top K PIs (K = 100, 500) by each model's call fit. Reported: candidates per call, realized\n  distant pairs under that call found among them (recall), and precision against the random rate\n  for a distant pair.\nExamples of suggested teams that did form go to examples/ (git-ignored: titles and PI IDs).",
+  "pool_PIs": 44376,
+  "new_pairs": 4680,
+  "pairs_by_kind": {
+    "distant": 2054,
+    "middle": 1373,
+    "close": 1253
+  },
+  "A_describe": {
+    "distant": {
+      "pairs": 2054,
+      "same_institution": 0.318,
+      "median_team_size": 3.0,
+      "U_or_P_mechanism": 0.229,
+      "mechanism_family": {
+        "R": 0.636,
+        "U": 0.213,
+        "T": 0.057,
+        "O": 0.052,
+        "P": 0.016,
+        "K": 0.013
+      },
+      "top_activity_codes": {
+        "R01": 0.388,
+        "R21": 0.09,
+        "U01": 0.08,
+        "OT2": 0.052,
+        "T32": 0.048,
+        "UG3": 0.031,
+        "R25": 0.026,
+        "RF1": 0.025
+      },
+      "call_type": {
+        "PA/PAS": 0.381,
+        "RFA": 0.293,
+        "PAR": 0.269,
+        "OTA": 0.052,
+        "BX": 0.002,
+        "CX": 0.001,
+        "HX": 0.001
+      },
+      "top_institutes": {
+        "CA": 0.15,
+        "AG": 0.113,
+        "DK": 0.09,
+        "NS": 0.078,
+        "AI": 0.078,
+        "HL": 0.075
+      }
+    },
+    "middle": {
+      "pairs": 1373,
+      "same_institution": 0.299,
+      "median_team_size": 3.0,
+      "U_or_P_mechanism": 0.248,
+      "mechanism_family": {
+        "R": 0.661,
+        "U": 0.225,
+        "O": 0.033,
+        "T": 0.031,
+        "P": 0.023,
+        "D": 0.01
+      },
+      "top_activity_codes": {
+        "R01": 0.409,
+        "U01": 0.079,
+        "R21": 0.079,
+        "RF1": 0.033,
+        "OT2": 0.033,
+        "UG3": 0.028,
+        "T32": 0.028,
+        "R61": 0.025
+      },
+      "call_type": {
+        "RFA": 0.364,
+        "PA/PAS": 0.346,
+        "PAR": 0.25,
+        "OTA": 0.033,
+        "CX": 0.004,
+        "BX": 0.002,
+        "HX": 0.001,
+        "RX": 0.001
+      },
+      "top_institutes": {
+        "CA": 0.162,
+        "AG": 0.119,
+        "NS": 0.098,
+        "MH": 0.091,
+        "AI": 0.08,
+        "HL": 0.066
+      }
+    },
+    "close": {
+      "pairs": 1253,
+      "same_institution": 0.255,
+      "median_team_size": 3.0,
+      "U_or_P_mechanism": 0.286,
+      "mechanism_family": {
+        "R": 0.648,
+        "U": 0.263,
+        "T": 0.026,
+        "P": 0.022,
+        "O": 0.018,
+        "D": 0.016
+      },
+      "top_activity_codes": {
+        "R01": 0.449,
+        "U01": 0.103,
+        "R21": 0.046,
+        "U19": 0.034,
+        "U24": 0.03,
+        "UG3": 0.027,
+        "T32": 0.022,
+        "RF1": 0.022
+      },
+      "call_type": {
+        "PA/PAS": 0.386,
+        "RFA": 0.324,
+        "PAR": 0.267,
+        "OTA": 0.018,
+        "BX": 0.002,
+        "HX": 0.001,
+        "CX": 0.001,
+        "none": 0.001
+      },
+      "top_institutes": {
+        "CA": 0.157,
+        "AG": 0.128,
+        "MH": 0.095,
+        "AI": 0.092,
+        "NS": 0.082,
+        "HL": 0.07
+      }
+    }
+  },
+  "B_bridge": {
+    "pairs_under_test_calls": 1415,
+    "by_kind": {
+      "distant": 611,
+      "middle": 422,
+      "close": 382
+    },
+    "off the shelf": {
+      "distant": {
+        "both_top100": 0.007,
+        "both_top500": 0.033,
+        "both_top1000": 0.098,
+        "median_worse_rank": 7222.0
+      },
+      "middle": {
+        "both_top100": 0.036,
+        "both_top500": 0.199,
+        "both_top1000": 0.353,
+        "median_worse_rank": 1982.0
+      },
+      "close": {
+        "both_top100": 0.12,
+        "both_top500": 0.364,
+        "both_top1000": 0.476,
+        "median_worse_rank": 1105.0
+      }
+    },
+    "fine-tuned": {
+      "distant": {
+        "both_top100": 0.008,
+        "both_top500": 0.059,
+        "both_top1000": 0.11,
+        "median_worse_rank": 6935.0
+      },
+      "middle": {
+        "both_top100": 0.047,
+        "both_top500": 0.251,
+        "both_top1000": 0.382,
+        "median_worse_rank": 2121.0
+      },
+      "close": {
+        "both_top100": 0.144,
+        "both_top500": 0.398,
+        "both_top1000": 0.529,
+        "median_worse_rank": 745.5
+      }
+    },
+    "chance_both_top100": 5e-06
+  },
+  "C_suggest": {
+    "realized_distant_pairs": 611,
+    "calls_with_one": 270,
+    "share_of_all_pairs_distant": 0.964,
+    "off the shelf top100": {
+      "candidates_per_call": 1280.6,
+      "found": 4,
+      "recall": 0.007,
+      "precision": 4e-06,
+      "lift_over_random_distant_pair": 4854.3
+    },
+    "off the shelf top500": {
+      "candidates_per_call": 61664.5,
+      "found": 20,
+      "recall": 0.033,
+      "precision": 0.0,
+      "lift_over_random_distant_pair": 504.0
+    },
+    "fine-tuned top100": {
+      "candidates_per_call": 2137.7,
+      "found": 5,
+      "recall": 0.008,
+      "precision": 3e-06,
+      "lift_over_random_distant_pair": 3635.0
+    },
+    "fine-tuned top500": {
+      "candidates_per_call": 81156.1,
+      "found": 36,
+      "recall": 0.059,
+      "precision": 1e-06,
+      "lift_over_random_distant_pair": 689.4
+    }
+  },
+  "models": {
+    "off the shelf": "qwen3-4b-zs",
+    "fine-tuned": "qwen3-4b-ft-B"
+  }
+}

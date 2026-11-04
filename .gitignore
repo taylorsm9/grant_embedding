@@ -1,0 +1,28 @@
+# Abstract text, embeddings and other derived data: rebuilt by release/reproduce.sh, never committed
+grants/raw/
+grants/derived/
+grants/guide/
+grants/logs/
+experiments/common/frozen/
+experiments/common/rebuild/
+experiments/common/candidates_*.parquet
+*.parquet
+*.npy
+*.npz
+
+# Models, adapters and checkpoints
+models/
+experiments/retriever_4b/run_B/best_adapter/
+experiments/retriever_4b/run_B/merged/
+*.pt
+*.safetensors
+
+# Example emails and teams (project titles and PI IDs)
+experiments/pi_backtest/emails/
+experiments/clustering/examples/
+
+# Environments and caches
+.venv*/
+grants/.venv/
+__pycache__/
+*.log

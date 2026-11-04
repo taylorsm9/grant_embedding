@@ -1,0 +1,407 @@
+{
+  "design": "PI-level backtest of a fine-tuned retriever (0.6B by default, --size 4b), run on cached embeddings (CPU only).\n\nQuestion: if the tool had been run at the start of FY2022 over every PI's earlier (pre-FY2022)\nabstracts, would the FY2022-24 calls those PIs went on to win have been recommended to them?\n\nFixed design, decided before looking at any result (test data, run once):\n- History corpus: train-split and val-split abstracts (all awarded before FY2022), one row per\n  distinct abstract, linked to every PI listed on the project (PI_IDS, not only the contact PI).\n- Calls: all test-period calls in both slices (test = new calls, test_reissue = reissues).\n- PI score for a call = max cosine over the PI's history abstracts; the arg-max abstract is the\n  \"matched prior grant\" shown in the email.\n- Winners: every PI listed on a test-slice award. Winners with no history abstract cannot be\n  scored; their share is reported as coverage.\nThree views:\n  national     call -> rank of each winning PI among all PIs with history\n  institution  call -> rank of each winning PI among PIs with history at the winner's\n               institution (the research-office view); movers without history there are counted\n  email        PI -> rank of the won call among all test-period calls (what the email would list)",
+  "model": "qwen3-4b-ft-B",
+  "history_abstracts": 61918,
+  "history_PIs": 44376,
+  "calls": {
+    "test": 276,
+    "test_reissue": 493
+  },
+  "all": {
+    "winner_pairs": 15545,
+    "with_history": 7648,
+    "coverage": 0.492,
+    "with_history_at_award_institution": 5278,
+    "national": {
+      "R@10": 0.053,
+      "R@50": 0.154,
+      "R@100": 0.221,
+      "R@500": 0.425,
+      "MRR": 0.026,
+      "median_rank": 819.5,
+      "n": 7648,
+      "pool_PIs": 44376,
+      "chance_R@100": 0.0023
+    },
+    "institution": {
+      "R@1": 0.271,
+      "R@3": 0.403,
+      "R@5": 0.484,
+      "R@10": 0.585,
+      "MRR": 0.372,
+      "median_rank": 6.0,
+      "n": 5278,
+      "median_pool_PIs": 328.0,
+      "chance_R@3_median_pool": 0.009
+    },
+    "email": {
+      "R@1": 0.126,
+      "R@3": 0.245,
+      "R@10": 0.412,
+      "MRR": 0.221,
+      "median_rank": 18.0,
+      "n": 7648,
+      "calls_ranked": 769,
+      "chance_R@3": 0.0039
+    }
+  },
+  "test": {
+    "winner_pairs": 4251,
+    "with_history": 2279,
+    "coverage": 0.536,
+    "with_history_at_award_institution": 1586,
+    "national": {
+      "R@10": 0.066,
+      "R@50": 0.191,
+      "R@100": 0.257,
+      "R@500": 0.466,
+      "MRR": 0.035,
+      "median_rank": 655.0,
+      "n": 2279,
+      "pool_PIs": 44376,
+      "chance_R@100": 0.0023
+    },
+    "institution": {
+      "R@1": 0.239,
+      "R@3": 0.384,
+      "R@5": 0.475,
+      "R@10": 0.583,
+      "MRR": 0.349,
+      "median_rank": 6.0,
+      "n": 1586,
+      "median_pool_PIs": 349.0,
+      "chance_R@3_median_pool": 0.009
+    },
+    "email": {
+      "R@1": 0.1,
+      "R@3": 0.219,
+      "R@10": 0.393,
+      "MRR": 0.197,
+      "median_rank": 20.0,
+      "n": 2279,
+      "calls_ranked": 769,
+      "chance_R@3": 0.0039
+    },
+    "by_type": {
+      "PA/PAS": {
+        "winner_pairs": 47,
+        "with_history": 22,
+        "coverage": 0.468,
+        "with_history_at_award_institution": 15,
+        "national": {
+          "R@10": 0.091,
+          "R@50": 0.227,
+          "R@100": 0.227,
+          "R@500": 0.5,
+          "MRR": 0.066,
+          "median_rank": 494.0,
+          "n": 22,
+          "pool_PIs": 44376,
+          "chance_R@100": 0.0023
+        },
+        "institution": {
+          "R@1": 0.333,
+          "R@3": 0.467,
+          "R@5": 0.467,
+          "R@10": 0.6,
+          "MRR": 0.434,
+          "median_rank": 6.0,
+          "n": 15,
+          "median_pool_PIs": 362.0,
+          "chance_R@3_median_pool": 0.008
+        },
+        "email": {
+          "R@1": 0.318,
+          "R@3": 0.455,
+          "R@10": 0.682,
+          "MRR": 0.424,
+          "median_rank": 5.0,
+          "n": 22,
+          "calls_ranked": 769,
+          "chance_R@3": 0.0039
+        }
+      },
+      "PAR": {
+        "winner_pairs": 1306,
+        "with_history": 584,
+        "coverage": 0.447,
+        "with_history_at_award_institution": 425,
+        "national": {
+          "R@10": 0.053,
+          "R@50": 0.147,
+          "R@100": 0.192,
+          "R@500": 0.349,
+          "MRR": 0.027,
+          "median_rank": 1923.0,
+          "n": 584,
+          "pool_PIs": 44376,
+          "chance_R@100": 0.0023
+        },
+        "institution": {
+          "R@1": 0.198,
+          "R@3": 0.344,
+          "R@5": 0.445,
+          "R@10": 0.565,
+          "MRR": 0.313,
+          "median_rank": 8.0,
+          "n": 425,
+          "median_pool_PIs": 237.0,
+          "chance_R@3_median_pool": 0.013
+        },
+        "email": {
+          "R@1": 0.098,
+          "R@3": 0.207,
+          "R@10": 0.339,
+          "MRR": 0.18,
+          "median_rank": 40.0,
+          "n": 584,
+          "calls_ranked": 769,
+          "chance_R@3": 0.0039
+        }
+      },
+      "RFA": {
+        "winner_pairs": 2898,
+        "with_history": 1673,
+        "coverage": 0.577,
+        "with_history_at_award_institution": 1146,
+        "national": {
+          "R@10": 0.07,
+          "R@50": 0.206,
+          "R@100": 0.28,
+          "R@500": 0.506,
+          "MRR": 0.037,
+          "median_rank": 482.0,
+          "n": 1673,
+          "pool_PIs": 44376,
+          "chance_R@100": 0.0023
+        },
+        "institution": {
+          "R@1": 0.253,
+          "R@3": 0.398,
+          "R@5": 0.486,
+          "R@10": 0.59,
+          "MRR": 0.362,
+          "median_rank": 6.0,
+          "n": 1146,
+          "median_pool_PIs": 375.0,
+          "chance_R@3_median_pool": 0.008
+        },
+        "email": {
+          "R@1": 0.098,
+          "R@3": 0.221,
+          "R@10": 0.408,
+          "MRR": 0.2,
+          "median_rank": 18.0,
+          "n": 1673,
+          "calls_ranked": 769,
+          "chance_R@3": 0.0039
+        }
+      }
+    }
+  },
+  "test_reissue": {
+    "winner_pairs": 11294,
+    "with_history": 5369,
+    "coverage": 0.475,
+    "with_history_at_award_institution": 3692,
+    "national": {
+      "R@10": 0.047,
+      "R@50": 0.139,
+      "R@100": 0.206,
+      "R@500": 0.407,
+      "MRR": 0.023,
+      "median_rank": 901.0,
+      "n": 5369,
+      "pool_PIs": 44376,
+      "chance_R@100": 0.0023
+    },
+    "institution": {
+      "R@1": 0.284,
+      "R@3": 0.411,
+      "R@5": 0.487,
+      "R@10": 0.585,
+      "MRR": 0.382,
+      "median_rank": 6.0,
+      "n": 3692,
+      "median_pool_PIs": 300.0,
+      "chance_R@3_median_pool": 0.01
+    },
+    "email": {
+      "R@1": 0.137,
+      "R@3": 0.255,
+      "R@10": 0.42,
+      "MRR": 0.232,
+      "median_rank": 17.0,
+      "n": 5369,
+      "calls_ranked": 769,
+      "chance_R@3": 0.0039
+    },
+    "by_type": {
+      "PA/PAS": {
+        "winner_pairs": 2076,
+        "with_history": 914,
+        "coverage": 0.44,
+        "with_history_at_award_institution": 514,
+        "national": {
+          "R@10": 0.024,
+          "R@50": 0.073,
+          "R@100": 0.123,
+          "R@500": 0.338,
+          "MRR": 0.012,
+          "median_rank": 1518.0,
+          "n": 914,
+          "pool_PIs": 44376,
+          "chance_R@100": 0.0023
+        },
+        "institution": {
+          "R@1": 0.529,
+          "R@3": 0.652,
+          "R@5": 0.708,
+          "R@10": 0.776,
+          "MRR": 0.61,
+          "median_rank": 1.0,
+          "n": 514,
+          "median_pool_PIs": 6.0,
+          "chance_R@3_median_pool": 0.5
+        },
+        "email": {
+          "R@1": 0.101,
+          "R@3": 0.216,
+          "R@10": 0.399,
+          "MRR": 0.193,
+          "median_rank": 21.0,
+          "n": 914,
+          "calls_ranked": 769,
+          "chance_R@3": 0.0039
+        }
+      },
+      "PAR": {
+        "winner_pairs": 6171,
+        "with_history": 2998,
+        "coverage": 0.486,
+        "with_history_at_award_institution": 2152,
+        "national": {
+          "R@10": 0.037,
+          "R@50": 0.121,
+          "R@100": 0.185,
+          "R@500": 0.376,
+          "MRR": 0.02,
+          "median_rank": 1024.0,
+          "n": 2998,
+          "pool_PIs": 44376,
+          "chance_R@100": 0.0023
+        },
+        "institution": {
+          "R@1": 0.218,
+          "R@3": 0.344,
+          "R@5": 0.418,
+          "R@10": 0.524,
+          "MRR": 0.318,
+          "median_rank": 9.0,
+          "n": 2152,
+          "median_pool_PIs": 346.0,
+          "chance_R@3_median_pool": 0.009
+        },
+        "email": {
+          "R@1": 0.136,
+          "R@3": 0.241,
+          "R@10": 0.394,
+          "MRR": 0.223,
+          "median_rank": 19.0,
+          "n": 2998,
+          "calls_ranked": 769,
+          "chance_R@3": 0.0039
+        }
+      },
+      "RFA": {
+        "winner_pairs": 3047,
+        "with_history": 1457,
+        "coverage": 0.478,
+        "with_history_at_award_institution": 1026,
+        "national": {
+          "R@10": 0.084,
+          "R@50": 0.216,
+          "R@100": 0.299,
+          "R@500": 0.515,
+          "MRR": 0.035,
+          "median_rank": 449.0,
+          "n": 1457,
+          "pool_PIs": 44376,
+          "chance_R@100": 0.0023
+        },
+        "institution": {
+          "R@1": 0.3,
+          "R@3": 0.433,
+          "R@5": 0.522,
+          "R@10": 0.617,
+          "MRR": 0.402,
+          "median_rank": 5.0,
+          "n": 1026,
+          "median_pool_PIs": 363.0,
+          "chance_R@3_median_pool": 0.008
+        },
+        "email": {
+          "R@1": 0.163,
+          "R@3": 0.31,
+          "R@10": 0.489,
+          "MRR": 0.273,
+          "median_rank": 11.0,
+          "n": 1457,
+          "calls_ranked": 769,
+          "chance_R@3": 0.0039
+        }
+      }
+    }
+  },
+  "email_framing": {
+    "base_rate_per_suggestion": 0.00022411627039581138,
+    "pi_email_top3": {
+      "emails_all_PIs": 44376,
+      "suggestions_won_all_PIs": 0.014,
+      "lift_over_random": 62.5,
+      "emails_to_test_winners": 6409,
+      "share_of_winner_emails_with_a_won_call": 0.279,
+      "suggestions_won_winner_emails": 0.097,
+      "winner_emails_by_calls_won": {
+        "0": 4623,
+        "1": 1707,
+        "2": 78,
+        "3": 1
+      }
+    },
+    "pi_email_top5": {
+      "emails_all_PIs": 44376,
+      "suggestions_won_all_PIs": 0.0109,
+      "lift_over_random": 48.4,
+      "emails_to_test_winners": 6409,
+      "share_of_winner_emails_with_a_won_call": 0.354,
+      "suggestions_won_winner_emails": 0.075,
+      "winner_emails_by_calls_won": {
+        "0": 4139,
+        "1": 2136,
+        "2": 129,
+        "3": 5
+      }
+    },
+    "office_email_top3": {
+      "institutions": 168,
+      "min_PIs": 50,
+      "PIs_covered": 33138,
+      "lists": 129192,
+      "suggestions_won": 0.0051,
+      "lift_over_random": 22.7,
+      "lists_where_institution_had_a_winner": 4755,
+      "share_of_those_lists_naming_a_winner": 0.375
+    },
+    "office_email_top5": {
+      "institutions": 168,
+      "min_PIs": 50,
+      "PIs_covered": 33138,
+      "lists": 129192,
+      "suggestions_won": 0.0039,
+      "lift_over_random": 17.3,
+      "lists_where_institution_had_a_winner": 4755,
+      "share_of_those_lists_naming_a_winner": 0.464
+    }
+  }
+}

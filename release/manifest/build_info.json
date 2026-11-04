@@ -1,0 +1,48 @@
+{
+  "git_commit": "3b0556b0b227cc168f30fc474ee36c93d3cda893",
+  "exporter_downloaded": [
+    "2026-11-02T19:00:12",
+    "2026-11-02T19:08:39"
+  ],
+  "nih_guide_fetched": [
+    "2026-11-02T19:44:03",
+    "2026-11-02T21:57:58"
+  ],
+  "fy_range": [
+    2008,
+    2025
+  ],
+  "split_constants": {
+    "seed": 20261102,
+    "val_frac": 0.07,
+    "cap": 40,
+    "test_fy": [
+      2022,
+      2024
+    ],
+    "award_cutoff_fy": 2022,
+    "heldout_institutions": {}
+  },
+  "family_threshold": 0.45,
+  "family_title_threshold": 0.8,
+  "text": {
+    "query_cap": 512,
+    "doc_cap": 768,
+    "query_prompt": "Instruct: Given a funding opportunity announcement, retrieve abstracts of research projects funded under it\nQuery:"
+  },
+  "counts": {
+    "rows": 78695,
+    "by_split": {
+      "train": 60111,
+      "test_reissue": 8292,
+      "drop_after_cutoff": 4274,
+      "test": 2725,
+      "val": 2333,
+      "drop_dup_abstract": 942,
+      "drop_fy2025": 18
+    },
+    "train_used": 49869,
+    "foas": 4888
+  },
+  "hashes": "abstract_sha1 = sha1 of the raw abstract, whitespace-collapsed and lower-cased (make_splits.text_hash); doc_sha1 / query_*_sha1 = sha1 of the exact model input text"
+}

@@ -1,0 +1,130 @@
+{
+  "design": "Do fine-tuned embeddings cluster grants by the call that funded them? CPU only, cached embeddings.\n\nDocs: the winning abstracts of the test-period calls (FY2022-24), never seen in training, scored\nper slice (test = new calls, test_reissue = reissues of training programs; new calls are the clean\ntest). Both models are read from the embedding cache; nothing is encoded.\n\nFixed design, decided before looking at any result:\n- kNN agreement: for each doc, the share of its 10 nearest neighbours (cosine, within the slice)\n  with the same call / administering institute / activity code / funding mechanism family.\n- k-means with k = number of calls in the slice (seed fixed, 3 inits): NMI and ARI against calls.\n- Figure: t-SNE (seed fixed) of the winners of the 10 largest new calls, one panel per model.",
+  "models": {
+    "off the shelf": "qwen3-4b-zs",
+    "fine-tuned": "qwen3-4b-ft-B"
+  },
+  "test": {
+    "docs": 2725,
+    "calls": 276,
+    "off the shelf": {
+      "call": {
+        "agreement": 0.399,
+        "chance": 0.009
+      },
+      "institute": {
+        "agreement": 0.626,
+        "chance": 0.068
+      },
+      "activity_code": {
+        "agreement": 0.538,
+        "chance": 0.143
+      },
+      "mechanism_family": {
+        "agreement": 0.817,
+        "chance": 0.552
+      },
+      "kmeans_vs_call": {
+        "NMI": 0.779,
+        "ARI": 0.242
+      }
+    },
+    "fine-tuned": {
+      "call": {
+        "agreement": 0.494,
+        "chance": 0.009
+      },
+      "institute": {
+        "agreement": 0.71,
+        "chance": 0.068
+      },
+      "activity_code": {
+        "agreement": 0.696,
+        "chance": 0.143
+      },
+      "mechanism_family": {
+        "agreement": 0.905,
+        "chance": 0.552
+      },
+      "kmeans_vs_call": {
+        "NMI": 0.836,
+        "ARI": 0.339
+      }
+    }
+  },
+  "figure_subset": {
+    "calls": [
+      "PAR-21-169",
+      "PAR-21-173",
+      "RFA-TR-22-030",
+      "PAR-23-138",
+      "PAR-22-181",
+      "RFA-MD-21-004",
+      "RFA-DA-23-021",
+      "PAR-21-336",
+      "PAR-22-241",
+      "PA-21-110"
+    ],
+    "docs": 546,
+    "off the shelf": {
+      "call": {
+        "agreement": 0.578,
+        "chance": 0.145
+      }
+    },
+    "fine-tuned": {
+      "call": {
+        "agreement": 0.683,
+        "chance": 0.145
+      }
+    }
+  },
+  "test_reissue": {
+    "docs": 8292,
+    "calls": 493,
+    "off the shelf": {
+      "call": {
+        "agreement": 0.201,
+        "chance": 0.007
+      },
+      "institute": {
+        "agreement": 0.597,
+        "chance": 0.082
+      },
+      "activity_code": {
+        "agreement": 0.322,
+        "chance": 0.074
+      },
+      "mechanism_family": {
+        "agreement": 0.676,
+        "chance": 0.519
+      },
+      "kmeans_vs_call": {
+        "NMI": 0.607,
+        "ARI": 0.078
+      }
+    },
+    "fine-tuned": {
+      "call": {
+        "agreement": 0.406,
+        "chance": 0.007
+      },
+      "institute": {
+        "agreement": 0.696,
+        "chance": 0.082
+      },
+      "activity_code": {
+        "agreement": 0.632,
+        "chance": 0.074
+      },
+      "mechanism_family": {
+        "agreement": 0.89,
+        "chance": 0.519
+      },
+      "kmeans_vs_call": {
+        "NMI": 0.736,
+        "ARI": 0.194
+      }
+    }
+  }
+}

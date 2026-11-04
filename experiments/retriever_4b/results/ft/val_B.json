@@ -1,0 +1,246 @@
+{
+  "info": {
+    "split": "val",
+    "variant": "B",
+    "n_queries": 217,
+    "n_docs": 4666,
+    "n_relevant_docs": 2333,
+    "n_distractors": 2333,
+    "distractor_seed": 20261102,
+    "distractors_by_source": {
+      "train": 2333
+    },
+    "distractor_fy_range": [
+      2008,
+      2021
+    ],
+    "n_excluded_near_dups": 0
+  },
+  "results": {
+    "bm25": {
+      "eval_a": {
+        "all": {
+          "recall@10": 0.3327,
+          "recall@50": 0.5882,
+          "recall@100": 0.6805,
+          "hit@10": 0.7604,
+          "hit@50": 0.9124,
+          "mrr": 0.5532,
+          "ndcg@10": 0.3685,
+          "n_queries": 217
+        },
+        "type=PA/PAS": {
+          "recall@10": 0.2313,
+          "recall@50": 0.4332,
+          "recall@100": 0.5399,
+          "hit@10": 0.6923,
+          "hit@50": 0.9615,
+          "mrr": 0.4758,
+          "ndcg@10": 0.2728,
+          "n_queries": 26
+        },
+        "type=PAR": {
+          "recall@10": 0.1912,
+          "recall@50": 0.4008,
+          "recall@100": 0.4973,
+          "hit@10": 0.6049,
+          "hit@50": 0.7901,
+          "mrr": 0.3958,
+          "ndcg@10": 0.2183,
+          "n_queries": 81
+        },
+        "type=RFA": {
+          "recall@10": 0.4608,
+          "recall@50": 0.7628,
+          "recall@100": 0.8487,
+          "hit@10": 0.8909,
+          "hit@50": 0.9909,
+          "mrr": 0.6873,
+          "ndcg@10": 0.5018,
+          "n_queries": 110
+        },
+        "size=large 30-200": {
+          "recall@10": 0.0597,
+          "recall@50": 0.1881,
+          "recall@100": 0.2559,
+          "hit@10": 0.4,
+          "hit@50": 0.7,
+          "mrr": 0.3661,
+          "ndcg@10": 0.2383,
+          "n_queries": 10
+        },
+        "size=medium 10-29": {
+          "recall@10": 0.2383,
+          "recall@50": 0.5593,
+          "recall@100": 0.659,
+          "hit@10": 0.8088,
+          "hit@50": 0.9706,
+          "mrr": 0.5571,
+          "ndcg@10": 0.3332,
+          "n_queries": 68
+        },
+        "size=small 5-9": {
+          "recall@10": 0.3985,
+          "recall@50": 0.6312,
+          "recall@100": 0.7216,
+          "hit@10": 0.7626,
+          "hit@50": 0.8993,
+          "mrr": 0.5648,
+          "ndcg@10": 0.3952,
+          "n_queries": 139
+        }
+      },
+      "seconds": 0.6
+    },
+    "qwen3-4b-ft-B": {
+      "eval_a": {
+        "all": {
+          "recall@10": 0.6345,
+          "recall@50": 0.9257,
+          "recall@100": 0.9682,
+          "hit@10": 0.9631,
+          "hit@50": 1.0,
+          "mrr": 0.7818,
+          "ndcg@10": 0.6777,
+          "n_queries": 217
+        },
+        "type=PA/PAS": {
+          "recall@10": 0.6294,
+          "recall@50": 0.9359,
+          "recall@100": 0.9835,
+          "hit@10": 1.0,
+          "hit@50": 1.0,
+          "mrr": 0.8068,
+          "ndcg@10": 0.6813,
+          "n_queries": 26
+        },
+        "type=PAR": {
+          "recall@10": 0.4684,
+          "recall@50": 0.8379,
+          "recall@100": 0.9237,
+          "hit@10": 0.9259,
+          "hit@50": 1.0,
+          "mrr": 0.6595,
+          "ndcg@10": 0.5132,
+          "n_queries": 81
+        },
+        "type=RFA": {
+          "recall@10": 0.7579,
+          "recall@50": 0.988,
+          "recall@100": 0.9973,
+          "hit@10": 0.9818,
+          "hit@50": 1.0,
+          "mrr": 0.866,
+          "ndcg@10": 0.798,
+          "n_queries": 110
+        },
+        "size=large 30-200": {
+          "recall@10": 0.1189,
+          "recall@50": 0.5452,
+          "recall@100": 0.6926,
+          "hit@10": 0.8,
+          "hit@50": 1.0,
+          "mrr": 0.6958,
+          "ndcg@10": 0.5486,
+          "n_queries": 10
+        },
+        "size=medium 10-29": {
+          "recall@10": 0.4501,
+          "recall@50": 0.9057,
+          "recall@100": 0.9766,
+          "hit@10": 0.9559,
+          "hit@50": 1.0,
+          "mrr": 0.7686,
+          "ndcg@10": 0.6122,
+          "n_queries": 68
+        },
+        "size=small 5-9": {
+          "recall@10": 0.7617,
+          "recall@50": 0.9629,
+          "recall@100": 0.9838,
+          "hit@10": 0.9784,
+          "hit@50": 1.0,
+          "mrr": 0.7945,
+          "ndcg@10": 0.719,
+          "n_queries": 139
+        }
+      },
+      "seconds": 224.0
+    },
+    "hybrid": {
+      "eval_a": {
+        "all": {
+          "recall@10": 0.5295,
+          "recall@50": 0.8781,
+          "recall@100": 0.9482,
+          "hit@10": 0.9401,
+          "hit@50": 0.9954,
+          "mrr": 0.7407,
+          "ndcg@10": 0.5798,
+          "n_queries": 217
+        },
+        "type=PA/PAS": {
+          "recall@10": 0.4985,
+          "recall@50": 0.8646,
+          "recall@100": 0.9591,
+          "hit@10": 0.9615,
+          "hit@50": 1.0,
+          "mrr": 0.7577,
+          "ndcg@10": 0.563,
+          "n_queries": 26
+        },
+        "type=PAR": {
+          "recall@10": 0.3449,
+          "recall@50": 0.7613,
+          "recall@100": 0.8792,
+          "hit@10": 0.8765,
+          "hit@50": 0.9877,
+          "mrr": 0.593,
+          "ndcg@10": 0.3995,
+          "n_queries": 81
+        },
+        "type=RFA": {
+          "recall@10": 0.6727,
+          "recall@50": 0.9674,
+          "recall@100": 0.9965,
+          "hit@10": 0.9818,
+          "hit@50": 1.0,
+          "mrr": 0.8455,
+          "ndcg@10": 0.7166,
+          "n_queries": 110
+        },
+        "size=large 30-200": {
+          "recall@10": 0.1087,
+          "recall@50": 0.508,
+          "recall@100": 0.6335,
+          "hit@10": 0.8,
+          "hit@50": 1.0,
+          "mrr": 0.5738,
+          "ndcg@10": 0.4742,
+          "n_queries": 10
+        },
+        "size=medium 10-29": {
+          "recall@10": 0.3879,
+          "recall@50": 0.8294,
+          "recall@100": 0.9395,
+          "hit@10": 0.9706,
+          "hit@50": 1.0,
+          "mrr": 0.7547,
+          "ndcg@10": 0.5431,
+          "n_queries": 68
+        },
+        "size=small 5-9": {
+          "recall@10": 0.629,
+          "recall@50": 0.9286,
+          "recall@100": 0.9751,
+          "hit@10": 0.9353,
+          "hit@50": 0.9928,
+          "mrr": 0.7459,
+          "ndcg@10": 0.6054,
+          "n_queries": 139
+        }
+      },
+      "seconds": 0.2
+    }
+  }
+}
